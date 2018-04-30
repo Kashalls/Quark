@@ -9,6 +9,4 @@ NOTE: For the contributors, you add new entries to this document following this 
 - [[#PRNUMBER](https://github.com/quarksworks/bot.hooks/pull/PRNUMBER)] The change that has been made. (Author's Github name)
 -->
 
-## [Dev] - 0.5.0
-
 ### Added
