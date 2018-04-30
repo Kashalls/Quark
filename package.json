@@ -1,0 +1,27 @@
+{
+  "name": "bot.hooks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/QuarksWorks/bot.hooks.git"
+  },
+  "author": "QuarksWorks",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/QuarksWorks/bot.hooks/issues"
+  },
+  "homepage": "https://github.com/QuarksWorks/bot.hooks#readme",
+  "dependencies": {
+    "klasa": "github:dirigeants/klasa#master"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0-beta.46",
+    "@babel/register": "^7.0.0-beta.46",
+    "eslint-config-quark": "github:quarksworks/quark-lint"
+  }
+}
