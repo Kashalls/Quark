@@ -20,8 +20,6 @@
     "klasa": "github:dirigeants/klasa#master"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-beta.46",
-    "@babel/register": "^7.0.0-beta.46",
     "eslint-config-quark": "github:quarksworks/quark-lint"
   }
 }

@@ -16,17 +16,20 @@ export default class ErisDashboardHooks extends Polka {
 
 		this.use(this.setHeaders.bind(this));
 
-		this.get('api/application', (request, response) => response.end(JSON.stringify({
-			users: this.client.users.size,
-			guilds: this.client.guilds.size,
-			channels: this.client.channels.size,
-			shards: this.client.options.shardCount,
-			uptime: Duration.toNow(Date.now() - (process.uptime() * 1000)),
-			latency: this.client.ping.toFixed(0),
-			memory: process.memoryUsage().heapUsed / 1024 / 1024,
-			invite: this.client.invite,
-			...this.client.application
-		})));
+		this.get('api/application', async (request, response) => {
+			const appInfo = await this.client.getOAuthApplication();
+			response.end(JSON.stringify({
+				users: this.client.users.size,
+				guilds: this.client.guilds.size,
+				channels: this.client.channels.size,
+				uptime: Duration.toNow(Date.now() - (process.uptime() * 1000)),
+				erisUptime: this.client.uptime,
+				latency: this.client.ping.toFixed(0),
+				memory: process.memoryUsage().heapUsed / 1024 / 1024,
+				invite: this.client.invite,
+				applicationInfo: appInfo
+			}));
+		});
 
 		this.get('api/users', (request, response) => response.end(JSON.stringify(this.client.users.keyArray())));
 
@@ -93,18 +96,6 @@ export default class ErisDashboardHooks extends Polka {
 			if (!channel) return response.end('{}');
 			return response.end(JSON.stringify(channel));
 		});
-
-		for (const [name, store] of this.client.pieceStores) {
-			this.get(`api/${name}`, (request, response) => response.end(JSON.stringify(store.keyArray())));
-
-			this.get(`api/${name}/:id`, (request, response) => {
-				const { id } = request.params;
-				if (id === 'all') return response.end(JSON.stringify(store.array()));
-				const piece = store.get(id);
-				if (!piece) response.end('{}');
-				return response.end(JSON.stringify(piece));
-			});
-		}
 
 		this.listen(options.port);
 	}

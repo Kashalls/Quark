@@ -1,4 +1,5 @@
 import KlasaDashboardHooks from './lib/klasa/KlasaDashboardHooks.js';
+import ErisDashboardHooks from './lib/eris/ErisDashboardHooks.js';
 
 export default class BotHooks {
 
@@ -21,6 +22,8 @@ export default class BotHooks {
 		if (!this.types.includes(type.toLowerCase())) throw new Error('Incorrect library type');
 		if (type === 'klasa') {
 			return new KlasaDashboardHooks(this.client, options);
+		} else if (type === 'eris') {
+			return new ErisDashboardHooks(this.client, options);
 		}
 		throw new Error('Please specify a library or framework type');
 	}
