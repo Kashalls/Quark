@@ -10,3 +10,9 @@ NOTE: For the contributors, you add new entries to this document following this 
 -->
 
 ### Added
+
+### Changed
+
+### Removed
+
+### Fixed

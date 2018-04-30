@@ -29,9 +29,8 @@ export default class ErisDashboardHooks extends Polka {
 				erisUptime: this.client.uptime,
 				formatedUptime: this.ts.display(process.uptime()),
 				formatedErisUptime: this.ts.display(this.client.uptime),
-				latency: this.client.ping.toFixed(0),
 				memory: process.memoryUsage().heapUsed / 1024 / 1024,
-				invite: this.client.invite,
+				invite: `https://discordapp.com/oauth2/authorize?client_id=${this.client.user.id}&scope=bot&permissions=0`,
 				applicationInfo: appInfo
 			}));
 		});
