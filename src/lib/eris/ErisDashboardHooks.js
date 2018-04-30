@@ -1,18 +1,21 @@
 import * as Polkaa from 'polka';
 const Polka = new Polkaa().constructor;
-import { Duration } from 'klasa';
+import { Duration, Timestamp } from 'klasa';
 
 export default class ErisDashboardHooks extends Polka {
 
 	constructor(client, options = {
 		port: 3000,
-		origin: '*'
+		origin: '*',
+		formattedUptimeStamp: 'DD:hh:mm:ss'
 	}) {
 		super();
 
 		this.client = client;
 
 		this.origin = options.origin;
+
+		this.ts = new Timestamp(options.uptimeTimestamp);
 
 		this.use(this.setHeaders.bind(this));
 
@@ -24,6 +27,8 @@ export default class ErisDashboardHooks extends Polka {
 				channels: this.client.channels.size,
 				uptime: Duration.toNow(Date.now() - (process.uptime() * 1000)),
 				erisUptime: this.client.uptime,
+				formatedUptime: this.ts.display(process.uptime()),
+				formatedErisUptime: this.ts.display(this.client.uptime),
 				latency: this.client.ping.toFixed(0),
 				memory: process.memoryUsage().heapUsed / 1024 / 1024,
 				invite: this.client.invite,

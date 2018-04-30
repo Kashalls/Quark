@@ -25,20 +25,24 @@ SOFTWARE.
 import * as Polkaa from 'polka';
 const Polka = new Polkaa().constructor;
 
-import Klasa, { Duration } from 'klasa';
+import Klasa, { Duration, Timestamp } from 'klasa';
 const { util: { isFunction } } = Klasa;
 
 export default class KlasaDashboardHooks extends Polka {
 
 	constructor(client, options = {
 		port: 3000,
-		origin: '*'
+		origin: '*',
+		uptimeTimestamp: 'DD:hh:mm:ss',
+		maxPermLevel: 6
 	}) {
 		super();
 
 		this.client = client;
 
 		this.origin = options.origin;
+
+		this.ts = new Timestamp(options.uptimeTimestamp);
 
 		this.use(this.setHeaders.bind(this));
 
@@ -55,6 +59,7 @@ export default class KlasaDashboardHooks extends Polka {
 			channels: this.client.channels.size,
 			shards: this.client.options.shardCount,
 			uptime: Duration.toNow(Date.now() - (process.uptime() * 1000)),
+			formatedUptime: this.ts.display(process.uptime()),
 			latency: this.client.ping.toFixed(0),
 			memory: process.memoryUsage().heapUsed / 1024 / 1024,
 			invite: this.client.invite,
