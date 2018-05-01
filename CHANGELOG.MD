@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 <!--
 NOTE: For the contributors, you add new entries to this document following this format:
-- [[#PRNUMBER](https://github.com/quarksworks/bot.hooks/pull/PRNUMBER)] The change that has been made. (Author's Github name)
+- [[#PRNUMBER](https://github.com/quarksworks/quark/pull/PRNUMBER)] The change that has been made. (Author's Github name)
 -->
 
 ### Added
@@ -16,3 +16,5 @@ NOTE: For the contributors, you add new entries to this document following this 
 ### Removed
 
 ### Fixed
+
+### Breaking

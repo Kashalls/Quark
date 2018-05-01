@@ -1,6 +1,6 @@
-const KlasaDashboardHooks = require('./lib/klasa/KlasaDashboardHooks.mjs');
-const KomadaDashboardHooks = require('./lib/komada/KomadaDashboardHooks.mjs');
-const ErisDashboardHooks = require('./lib/eris/ErisDashboardHooks.mjs');
+const KlasaDashboardHooks = require('./lib/dashboard/klasa/KlasaDashboardHooks.mjs');
+const KomadaDashboardHooks = require('./lib/dashboard/komada/KomadaDashboardHooks.mjs');
+const ErisDashboardHooks = require('./lib/dashboard/eris/ErisDashboardHooks.mjs');
 
 const { types } = require('./lib/utilities/Constants.mjs');
 
