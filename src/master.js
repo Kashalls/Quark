@@ -4,7 +4,7 @@ const ErisDashboardHooks = require('./lib/dashboard/eris/ErisDashboardHooks.mjs'
 
 const { types } = require('./lib/utilities/Constants.mjs');
 
-module.exports = class BotHooks {
+module.exports = class Quark {
 
 	constructor(client) {
 		this.type = types;
