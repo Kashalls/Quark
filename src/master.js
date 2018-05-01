@@ -3,7 +3,7 @@ const KomadaDashboardHooks = require('./lib/dashboard/komada/KomadaDashboardHook
 const ErisDashboardHooks = require('./lib/dashboard/eris/ErisDashboardHooks.mjs');
 const DiscordJsDashboardHooks = require('./lib/dashboard/discordjs/DiscordJsDashboardHooks.mjs');
 
-const { types } = require('./lib/utilities/Constants.mjs');
+const { types } = require('./lib/utilities/Constants.js');
 
 module.exports = class Quark {
 
