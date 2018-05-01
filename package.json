@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/QuarksWorks/bot.hooks#readme",
   "dependencies": {
+    "discord.js": "github:discordjs/discord.js#master",
     "fs-nextra": "^0.3.4",
-    "klasa": "github:dirigeants/klasa#master"
+    "klasa": "github:dirigeants/klasa#master",
+    "polka": "^0.3.4"
   },
   "peerDependencies": {
     "highcharts-export-server": "^2.0.13"

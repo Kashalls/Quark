@@ -7,7 +7,7 @@ try {
 const render = promisify(exporter.export);
 exporter.initPool();
 
-module.exports = class Chart {
+class Chart {
 
 	constructor() {
 		this.type = 'png';
@@ -43,4 +43,6 @@ module.exports = class Chart {
 		return writeFile(location, data, 'base64');
 	}
 
-};
+}
+
+module.exports = Chart;
