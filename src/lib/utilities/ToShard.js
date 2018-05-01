@@ -1,4 +1,10 @@
-const { client: djsClient } = require('discord.js');
+const { Client: djsClient } = require('discord.js');
+
+/**
+ * @param {*[][]} array An array of arrays to sum
+ * @returns {*}
+ */
+const sumFirstElements = array => array.reduce((sum, element) => sum + element[0], 0);
 
 class ToShard {
 
@@ -7,23 +13,18 @@ class ToShard {
 		this.client = client;
 	}
 
-	async toShard(expression, combine = null) { // eslint-disable-line
-		if (!this.client.shard && combine === true) throw new Error('You cannot combine a non sharded expression');
-		if (!combine) {
-			if (!this.client.shard) {
-				const evaluations = await this.client.shard.broadcastEval(`[${expression}]`);
-				return evaluations;
-			}
-			return expression;
-		} else if (combine === true) {
-			let data = 0;
-			const evaluations = await this.client.shard.broadcastEval(`[${expression}]`);
-			for (const evaluation of evaluations) {
-				data += evaluation[0];
-			}
-			return data;
-		}
+	async toShard(expression, combine = false) {
 		if (!expression) throw new Error('Please provide an expression');
+
+		const { shard } = this.client;
+		
+		if (combine) {
+			if (!shard) throw new Error('You cannot combine a non sharded expression');
+			return shard.broadcastEval(`[${expression}]`).then(sumFirstElements);
+		} else {
+			if (!shard) return shard.broadcastEval(`[${expression}]`);
+			return expression;
+		}
 	}
 
 }
