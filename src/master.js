@@ -11,11 +11,11 @@ module.exports = class BotHooks {
 		this.client = client;
 	}
 
-	apiBind(type, options = null) {
+	apiBind(type, privateKey, options = null) {
 		if (typeof type !== 'string') throw new TypeError('Type is not a string');
 		if (!this.types.includes(type.toLowerCase())) throw new Error('Incorrect library type');
 		if (type === 'klasa') {
-			return new KlasaDashboardHooks(this.client, options);
+			return new KlasaDashboardHooks(this.client, privateKey, options);
 		} else if (type === 'komada') {
 			return new KomadaDashboardHooks(this.client, options);
 		} else if (type === 'eris') {

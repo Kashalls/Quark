@@ -30,7 +30,7 @@ const { util: { isFunction } } = Klasa;
 
 export default class KlasaDashboardHooks extends Polka {
 
-	constructor(client, options = {
+	constructor(client, privateKey, options = {
 		port: 3000,
 		origin: '*',
 		uptimeTimestamp: 'DD:hh:mm:ss',
@@ -39,6 +39,8 @@ export default class KlasaDashboardHooks extends Polka {
 		super();
 
 		this.client = client;
+
+		this.privateKey = privateKey;
 
 		this.origin = options.origin;
 
@@ -166,6 +168,41 @@ export default class KlasaDashboardHooks extends Polka {
 				});
 			});
 			return response.end(JSON.stringify(commands));
+		});
+
+		this.get('configs/get/guilds/:guildID/:type/', async (request, response) => {
+			const { guildID, type } = request.params;
+			const { headers } = request;
+			const [Authorization] = headers;
+			if (Authorization !== this.privateKey) {
+				return response.end('Incorrect Authorization token!');
+			} else if (Authorization === this.privateKey) {
+				var configurations;
+				if (type) {
+					configurations = await this.client.guilds.get(guildID).configs.get(type);
+				} else if (!type) {
+					configurations = await this.client.guilds.get(guildID).configs;
+				}
+				return response.end(JSON.stringify(configurations));
+			}
+			return response.end('Incorrect Authorization token!');
+		});
+
+		this.put('configs/put/guilds/:guildID/:type/', async (request, response) => {
+			const { guildID, type } = request.params;
+			const { headers } = request;
+			const [Authorization, Data] = headers;
+			if (Authorization !== this.privateKey) {
+				return response.end('Incorrect Authorization token!');
+			} else if (Authorization === this.privateKey) {
+				try {
+					await this.client.guilds.get(guildID).configs.update(type, Data, this.client.guilds.get(guildID));
+				} catch (err) {
+					this.client.emit('wtf', err);
+					return response.end(err);
+				}
+			}
+			return response.end('Incorrect Authorization token!');
 		});
 
 		for (const [name, store] of this.client.pieceStores) {
