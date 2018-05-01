@@ -10,7 +10,8 @@ export default class KlasaDashboardHooks extends Polka {
 	constructor(client, options = {
 		port: 3000,
 		origin: '*',
-		uptimeTimestamp: 'DD:hh:mm:ss'
+		uptimeTimestamp: 'DD:hh:mm:ss',
+		maxPermLevel: 6
 	}) {
 		super();
 
@@ -24,21 +25,19 @@ export default class KlasaDashboardHooks extends Polka {
 
 		this.use(this.setHeaders.bind(this));
 
-		this.get('api/application', (request, response) => response.end(JSON.stringify({
-			commandCount: this.client.commands.size,
-			eventCount: this.client.events.size,
-			monitorCount: this.client.monitors.size,
-			extandableCount: this.client.extandables.size,
-			inhibitorCount: this.client.inhibitors.size,
-			finalizerCount: this.client.finalizers.size,
-			users: this.toShard(this.client.users.size, true),
-			guilds: this.toShard(this.client.guilds.size, true),
-			channels: this.toShard(this.client.channels.size, true),
-			uptime: Duration.toNow(Date.now() - (process.uptime() * 1000)),
-			formatedUptime: this.ts.display(process.uptime()),
-			memory: process.memoryUsage().heapUsed / 1024 / 1024,
-			...this.client.application
-		})));
+		this.get('api/application', async (request, response) => {
+			const appInfo = await this.client.fetchApplication();
+			response.end(JSON.stringify({
+				users: this.toShard(this.client.users.size, true),
+				guilds: this.toShard(this.client.guilds.size, true),
+				channels: this.toShard(this.client.channels.size, true),
+				uptime: Duration.toNow(Date.now() - (process.uptime() * 1000)),
+				formatedUptime: this.ts.display(process.uptime()),
+				memory: process.memoryUsage().heapUsed / 1024 / 1024,
+				invite: `https://discordapp.com/oauth2/authorize?client_id=${this.client.user.id}&scope=bot&permissions=0`,
+				...appInfo
+			}));
+		});
 
 		this.get('api/users', (request, response) => response.end(JSON.stringify(this.client.users.keyArray())));
 
