@@ -17,9 +17,19 @@
   },
   "homepage": "https://github.com/QuarksWorks/bot.hooks#readme",
   "dependencies": {
+    "fs-nextra": "^0.3.4",
     "klasa": "github:dirigeants/klasa#master"
   },
+  "peerDependencies": {
+    "highcharts-export-server": "^2.0.13"
+  },
   "devDependencies": {
-    "eslint-config-quark": "github:quarksworks/quark-lint"
+    "eslint-config-quark": "github:quarksworks/quark-lint",
+    "@types/node": "^9.3.0",
+    "eslint": "^4.14.0",
+    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-promise": "^3.6.0",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.2"
   }
 }
