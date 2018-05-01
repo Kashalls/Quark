@@ -28,6 +28,8 @@ const Polka = new Polkaa().constructor;
 import Klasa, { Duration, Timestamp } from 'klasa';
 const { util: { isFunction } } = Klasa;
 
+import ToShard from '../../utilities/ToShard.js';
+
 export default class KlasaDashboardHooks extends Polka {
 
 	constructor(client, privateKey, options = {
@@ -46,6 +48,8 @@ export default class KlasaDashboardHooks extends Polka {
 
 		this.ts = new Timestamp(options.uptimeTimestamp);
 
+		this.toShard = new ToShard(this.client);
+
 		this.use(this.setHeaders.bind(this));
 
 		this.get('api/application', (request, response) => response.end(JSON.stringify({
@@ -56,16 +60,12 @@ export default class KlasaDashboardHooks extends Polka {
 			inhibitorCount: this.client.inhibitors.size,
 			finalizerCount: this.client.finalizers.size,
 			tasksCount: this.client.tasks.size,
-			users: this.client.users.size,
-			guilds: this.client.guilds.size,
-			channels: this.client.channels.size,
+			users: this.toShard(this.client.users.size, true),
+			guilds: this.toShard(this.client.guilds.size, true),
+			channels: this.toShard(this.client.channels.size, true),
 			shards: this.client.options.shardCount,
 			uptime: Duration.toNow(Date.now() - (process.uptime() * 1000)),
 			formatedUptime: this.ts.display(process.uptime()),
-			latency: {
-				ping: this.client.ping.toFixed(0),
-				pings: this.client.pings
-			},
 			memory: process.memoryUsage().heapUsed / 1024 / 1024,
 			invite: this.client.invite,
 			...this.client.application
