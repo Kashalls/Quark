@@ -1,4 +1,4 @@
-const { client: djsClient } = require('discord.js');
+const { Client: djsClient } = require('discord.js');
 
 class ToShard {
 
@@ -11,13 +11,13 @@ class ToShard {
 		if (!this.client.shard && combine === true) throw new Error('You cannot combine a non sharded expression');
 		if (!combine) {
 			if (!this.client.shard) {
-				const evaluations = await this.client.shard.broadcastEval(`[${expression}]`);
+				const evaluations = await this.client.shard.broadcastEval(expression);
 				return evaluations;
 			}
 			return expression;
 		} else if (combine === true) {
 			let data = 0;
-			const evaluations = await this.client.shard.broadcastEval(`[${expression}]`);
+			const evaluations = await this.client.shard.broadcastEval(expression);
 			for (const evaluation of evaluations) {
 				data += evaluation[0];
 			}
