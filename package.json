@@ -1,5 +1,5 @@
 {
-  "name": "bot.hooks",
+  "name": "quark",
   "version": "1.0.0",
   "description": "",
   "main": "src/index.js",
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/QuarksWorks/bot.hooks.git"
+    "url": "git+https://github.com/QuarksWorks/quark.git"
   },
   "author": "QuarksWorks",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/QuarksWorks/bot.hooks/issues"
+    "url": "https://github.com/QuarksWorks/quark/issues"
   },
-  "homepage": "https://github.com/QuarksWorks/bot.hooks#readme",
+  "homepage": "https://github.com/QuarksWorks/quark#readme",
   "dependencies": {
     "discord.js": "github:discordjs/discord.js#master",
     "fs-nextra": "^0.3.4",
