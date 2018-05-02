@@ -23,8 +23,8 @@ class ToShard {
 			if (!shard) throw new Error('You cannot combine a non sharded expression');
 			return shard.broadcastEval(expression).then(arraySum);
 		} else {
-			if (!shard) return shard.broadcastEval(expression);
-			return expression;
+			if (!shard) return expression;
+			return shard.broadcastEval(expression);
 		}
 	}
 
