@@ -1,5 +1,12 @@
 const { Client: djsClient } = require('discord.js');
 
+/**
+ * Add all the elements of the array
+ * @param {Array} array The array
+ * @returns {number} The sum
+ */
+const arraySum = array => array.reduce((partialSum, element) => partialSum + element, 0);
+
 class ToShard {
 
 	constructor(client) {
@@ -7,23 +14,18 @@ class ToShard {
 		this.client = client;
 	}
 
-	async toShard(expression, combine = null) { // eslint-disable-line
-		if (!this.client.shard && combine === true) throw new Error('You cannot combine a non sharded expression');
-		if (!combine) {
-			if (!this.client.shard) {
-				const evaluations = await this.client.shard.broadcastEval(expression);
-				return evaluations;
-			}
-			return expression;
-		} else if (combine === true) {
-			let data = 0;
-			const evaluations = await this.client.shard.broadcastEval(expression);
-			for (const evaluation of evaluations) {
-				data += evaluation[0];
-			}
-			return data;
-		}
+	async toShard(expression, combine = false) {
 		if (!expression) throw new Error('Please provide an expression');
+
+		const { shard } = this.client;
+
+		if (combine) {
+			if (!shard) throw new Error('You cannot combine a non sharded expression');
+			return shard.broadcastEval(expression).then(arraySum);
+		} else {
+			if (!shard) return expression;
+			return shard.broadcastEval(expression);
+		}
 	}
 
 }
