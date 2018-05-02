@@ -27,9 +27,9 @@
   },
   "devDependencies": {
     "eslint-config-quark": "github:quarksworks/quark-lint",
-    "@types/node": "^9.3.0",
+    "@types/node": "^10.0.2",
     "eslint": "^4.14.0",
-    "eslint-plugin-node": "^5.2.1",
+    "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-promise": "^3.6.0",
     "tslint": "^5.8.0",
     "typescript": "^2.6.2"
