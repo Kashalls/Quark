@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/QuarksWorks/bot.hooks#readme",
   "dependencies": {
-    "fs-nextra": "^0.3.4",
+    "fs-nextra": "^0.4.7",
     "klasa": "github:dirigeants/klasa#master"
   },
   "peerDependencies": {
